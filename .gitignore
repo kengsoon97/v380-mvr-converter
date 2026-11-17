@@ -1,0 +1,8 @@
+node_modules/
+release/
+.cache/
+.DS_Store
+resources/ffmpeg/ffmpeg-win.zip
+resources/ffmpeg/ffmpeg-win.7z
+resources/ffmpeg/ffmpeg.exe
+resources/ffmpeg/ffmpeg-*-build/

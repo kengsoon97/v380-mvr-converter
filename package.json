@@ -1,0 +1,69 @@
+{
+  "name": "v380-mvr-converter",
+  "version": "1.1.1",
+  "description": "Convert V380 Pro MVR and raw H.264 camera recordings into MP4 files.",
+  "productName": "V380 MVR Converter",
+  "main": "src/main.js",
+  "author": "Keng Soon",
+  "license": "MIT",
+  "scripts": {
+    "start": "electron .",
+    "dist:win": "electron-builder --win nsis --x64",
+    "dist:win:portable": "electron-builder --win portable --x64"
+  },
+  "devDependencies": {
+    "electron": "45.3.3",
+    "electron-builder": "26.18.0"
+  },
+  "build": {
+    "appId": "com.kengsoon.v380mvrconverter",
+    "productName": "V380 MVR Converter",
+    "asar": true,
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "src/**/*",
+      "package.json",
+      "LICENSE",
+      "README.md"
+    ],
+    "extraResources": [
+      {
+        "from": "resources/ffmpeg/ffmpeg.exe",
+        "to": "ffmpeg/ffmpeg.exe"
+      },
+      {
+        "from": "resources/ffmpeg/FFMPEG-NOTICE.txt",
+        "to": "ffmpeg/FFMPEG-NOTICE.txt"
+      },
+      {
+        "from": "resources/ffmpeg/COPYING.GPLv3",
+        "to": "ffmpeg/COPYING.GPLv3"
+      }
+    ],
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": ["x64"]
+        }
+      ],
+      "icon": "assets/icon.ico",
+      "artifactName": "V380-MVR-Converter-Setup-${version}.${ext}"
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "V380 MVR Converter",
+      "deleteAppDataOnUninstall": false,
+      "runAfterFinish": true
+    },
+    "portable": {
+      "artifactName": "V380-MVR-Converter-Portable-${version}.${ext}"
+    }
+  }
+}

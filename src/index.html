@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self'; script-src 'self'; img-src 'self' data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>V380 MVR Converter</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="app-shell">
+    <header class="topbar">
+      <div class="brand-mark" aria-hidden="true">
+        <svg viewBox="0 0 48 48" role="presentation">
+          <rect x="5" y="12" width="38" height="27" rx="7" fill="currentColor" />
+          <path d="M14 12 18 7h12l4 5" fill="currentColor" />
+          <circle cx="24" cy="25.5" r="9" fill="#f2f7ff" />
+          <circle cx="24" cy="25.5" r="5.2" fill="#2674e8" />
+          <circle cx="35" cy="18" r="1.7" fill="#b7d1ff" />
+        </svg>
+      </div>
+      <div>
+        <h1>V380 MVR Converter</h1>
+        <p class="subtitle">Recover camera recordings as standard MP4 video</p>
+      </div>
+      <div class="version-pill">FOR WINDOWS</div>
+    </header>
+
+    <section class="content">
+      <div class="intro-row">
+        <div>
+          <h2>Convert recordings</h2>
+          <p>Select several files to convert them one after another.</p>
+        </div>
+        <div class="privacy-note"><span class="privacy-dot"></span> Files stay on this PC</div>
+      </div>
+
+      <section id="drop-zone" class="drop-zone" aria-label="Drop recording files here">
+        <div class="upload-icon" aria-hidden="true">
+          <svg viewBox="0 0 32 32"><path d="M16 22V8m0 0-5 5m5-5 5 5M7 21v5h18v-5" /></svg>
+        </div>
+        <div class="drop-copy">
+          <strong>Drop recordings here</strong>
+          <span>or select one or more files from your device</span>
+        </div>
+        <button id="choose-file" class="button button-secondary" type="button">Browse recordings</button>
+        <div class="file-types">MVR · H.264 · AVI · MP4 · MKV · MOV</div>
+      </section>
+
+      <section id="queue-card" class="queue-card hidden" aria-label="Conversion queue">
+        <div class="queue-header">
+          <div>
+            <h3>Conversion queue</h3>
+            <p id="queue-summary">0 recordings selected</p>
+          </div>
+          <div class="queue-header-actions">
+            <button id="add-files" class="button button-outline" type="button">Add recordings</button>
+            <button id="clear-queue" class="button button-quiet" type="button">Clear all</button>
+          </div>
+        </div>
+        <div id="queue-list" class="queue-list"></div>
+      </section>
+
+      <section class="settings-card">
+        <div class="section-heading">
+          <div>
+            <h3>Encoding options</h3>
+            <p>MP4 files save beside their source recordings by default. Change a destination in the queue.</p>
+          </div>
+        </div>
+        <div class="quality-row">
+          <div class="quality-copy">
+            <h3>Video quality</h3>
+            <p id="quality-description">Good quality with a balanced file size.</p>
+          </div>
+          <label class="select-wrap" for="quality">
+            <select id="quality">
+              <option value="22">Higher quality</option>
+              <option value="25" selected>Balanced</option>
+              <option value="28">Smaller file</option>
+            </select>
+            <span class="select-chevron" aria-hidden="true">⌄</span>
+          </label>
+        </div>
+        <div id="fps-row" class="quality-row hidden">
+          <div class="quality-copy">
+            <h3>Raw-file frame-rate hint</h3>
+            <p>Used for raw MVR/H.264 files if timing is missing. If playback speed is wrong, try the camera's recording rate.</p>
+          </div>
+          <label class="select-wrap" for="input-fps">
+            <select id="input-fps">
+              <option value="10">10 fps</option>
+              <option value="12">12 fps</option>
+              <option value="14">14 fps</option>
+              <option value="15">15 fps</option>
+              <option value="20">20 fps</option>
+              <option value="24">24 fps</option>
+              <option value="25" selected>25 fps</option>
+              <option value="30">30 fps</option>
+            </select>
+            <span class="select-chevron" aria-hidden="true">⌄</span>
+          </label>
+        </div>
+      </section>
+
+      <section id="progress-card" class="progress-card hidden" aria-live="polite">
+        <div class="progress-top">
+          <div class="progress-indicator">
+            <span id="status-dot" class="status-dot"></span>
+            <strong id="status-title">Ready</strong>
+          </div>
+          <span id="progress-detail" class="progress-detail"></span>
+        </div>
+        <div id="progress-track" class="progress-track"><div id="progress-fill" class="progress-fill"></div></div>
+        <p id="status-message" class="status-message">Your recordings will be converted one at a time.</p>
+        <div id="result-row" class="result-row hidden">
+          <div class="result-copy"><strong id="result-name"></strong><span id="result-size"></span></div>
+          <button id="open-folder" class="button button-outline" type="button">Open last output folder</button>
+        </div>
+        <div id="warning-note" class="warning-note hidden">Some damaged source data may have been skipped. Please check the converted videos.</div>
+      </section>
+
+      <div class="actions">
+        <button id="convert-button" class="button button-primary" type="button" disabled>
+          <span class="button-play" aria-hidden="true">▶</span><span id="convert-label">Convert to MP4</span>
+        </button>
+        <button id="cancel-button" class="button button-cancel hidden" type="button">Cancel batch</button>
+      </div>
+
+      <div id="error-banner" class="error-banner hidden" role="alert"></div>
+    </section>
+
+    <footer>
+      <span>Conversion is performed locally. No video is uploaded.</span>
+      <span>Uses FFmpeg</span>
+    </footer>
+  </main>
+  <script src="renderer.js"></script>
+</body>
+</html>

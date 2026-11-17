@@ -1,0 +1,11 @@
+Third-party component: FFmpeg for Windows
+
+This application bundles ffmpeg.exe from the FFmpeg Windows essentials build published by gyan.dev. FFmpeg's official download page lists gyan.dev as a Windows executable provider. The bundled essentials build is identified by the package name ffmpeg-9.0.2-essentials_build and is distributed under GPLv3.
+
+FFmpeg project: https://ffmpeg.org/
+FFmpeg source release: https://ffmpeg.org/releases/ffmpeg-9.0.2.tar.xz
+FFmpeg source mirror / release commit: https://github.com/FFmpeg/FFmpeg/commit/946fcce07b
+Windows build publisher and build details: https://www.gyan.dev/ffmpeg/builds/
+GPLv3 license text: https://www.gnu.org/licenses/gpl-3.0.txt
+
+The FFmpeg binary is a separate executable invoked as a child process. It is not linked into the converter application. FFmpeg and its build configuration are provided by their respective maintainers; this converter is an independent utility and is not affiliated with or endorsed by V380.
